@@ -24,7 +24,8 @@
 // All that matters is that your final data is written to an SQLite database
 // called "data.sqlite" in the current working directory which has at least a table
 // called "data".
-require 'fabpot/goutte';
+use		Goutte\Client;
+use		GuzzleHttp\Client as GuzzleClient;
 use Goutte\Client;
 $client = new Client();
 $crawler = $client->request('GET', 'https://www.symfony.com/blog/');
