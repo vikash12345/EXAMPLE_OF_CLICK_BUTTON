@@ -26,7 +26,6 @@
 // called "data".
 
 use Goutte\Client;
-$client = new Client();
 $crawler = $client->request('GET', 'https://www.symfony.com/blog/');
 $link = $crawler->selectLink('Security Advisories')->link();
 $crawler = $client->click($link);
