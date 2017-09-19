@@ -25,13 +25,11 @@
 // called "data.sqlite" in the current working directory which has at least a table
 // called "data".
 composer require fabpot/goutte
- use Goutte\Client;
+use Goutte\Client;
 $client = new Client();
-$crawler = $client->request('GET', 'https://en-gb.facebook.com/login/');
-$form = $crawler->selectButton('Log In')->form();
-$crawler = $client->submit($form, array('email' => 'email', 'pass' => 'pass'));
-$crawler->filter('.flash-error')->each(function ($node) {
-    print $node->text()."\n";
-});
-echo $crawler->html();
+$crawler = $client->request('GET', 'https://www.symfony.com/blog/');
+$link = $crawler->selectLink('Security Advisories')->link();
+$crawler = $client->click($link);
+echo $crawler;
+
 ?>
