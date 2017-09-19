@@ -1,8 +1,20 @@
 <?
 // This is a template for a PHP scraper on morph.io (https://morph.io)
 // including some code snippets below that you should find helpful
+require 'fabpot/goutte';
+use Goutte\Client;
 
-// require 'scraperwiki.php';
+$client = new Client();
+$crawler = $client->request('GET', 'https://www.symfony.com/blog/');
+// Click on the "Security Advisories" link
+$link = $crawler->selectLink('Security Advisories')->link();
+$crawler = $client->click($link);
+
+$crawler->filter('h2 > a')->each(function ($node) {
+    print $node->text()."\n";
+});
+
+
 // require 'scraperwiki/simple_html_dom.php';
 //
 // // Read in a page
@@ -25,10 +37,6 @@
 // called "data.sqlite" in the current working directory which has at least a table
 // called "data".
 
-use Goutte\Client;
-$crawler = $client->request('GET', 'https://www.symfony.com/blog/');
-$link = $crawler->selectLink('Security Advisories')->link();
-$crawler = $client->click($link);
-echo $crawler;
+
 
 ?>
