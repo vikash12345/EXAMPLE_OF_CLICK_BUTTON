@@ -1,7 +1,5 @@
 <?
 require 'fabpot/goutte'
-use Goutte\Client;
-
 $client = new Client();
 
 // Go to the symfony.com website
