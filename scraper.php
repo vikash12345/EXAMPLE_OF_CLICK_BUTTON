@@ -1,21 +1,17 @@
 <?
-// This is a template for a PHP scraper on morph.io (https://morph.io)
-// including some code snippets below that you should find helpful
-$client = new GuzzleHttp\Client();
-$res = $client->request('GET', 'https://api.github.com/user', [
-    'auth' => ['user', 'pass']
-]);
-echo $res->getStatusCode();
-// "200"
-echo $res->getHeader('content-type');
-// 'application/json; charset=utf8'
-echo $res->getBody();
-// {"type":"User"...'
+composer require fabpot/goutte
+use Goutte\Client;
 
-// Send an asynchronous request.
-$request = new \GuzzleHttp\Psr7\Request('GET', 'http://httpbin.org');
-$promise = $client->sendAsync($request)->then(function ($response) {
-    echo 'I completed! ' . $response->getBody();
+$client = new Client();
+
+// Go to the symfony.com website
+$crawler = $client->request('GET', 'https://www.symfony.com/blog/');
+
+$link = $crawler->selectLink('Security Advisories')->link();
+$crawler = $client->click($link);
+
+// Get the latest post in this category and display the titles
+$crawler->filter('h2 > a')->each(function ($node) {
+    print $node->text()."\n";
 });
-$promise->wait();
 ?>
