@@ -1,5 +1,5 @@
 <?
-require = 'fabpot/goutte'
+require 'fabpot/goutte'
 use Goutte\Client;
 
 $client = new Client();
